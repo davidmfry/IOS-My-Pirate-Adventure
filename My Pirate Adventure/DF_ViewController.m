@@ -7,6 +7,7 @@
 //
 
 #import "DF_ViewController.h"
+#import "DF_TheFactory.h"
 
 @interface DF_ViewController ()
 
@@ -18,6 +19,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    DF_TheFactory *gameContainer = [[DF_TheFactory alloc]init];
+    NSArray *gameBoard = [gameContainer makeGameBoard];
+    NSLog(@"%@", gameBoard);
+    
 }
 
 - (void)didReceiveMemoryWarning

@@ -21,6 +21,8 @@
 		EDCD041118FDF4C700F5CA65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDCD03F318FDF4C700F5CA65 /* UIKit.framework */; };
 		EDCD041918FDF4C700F5CA65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EDCD041718FDF4C700F5CA65 /* InfoPlist.strings */; };
 		EDCD041B18FDF4C700F5CA65 /* My_Pirate_AdventureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCD041A18FDF4C700F5CA65 /* My_Pirate_AdventureTests.m */; };
+		EDCD042618FDF60300F5CA65 /* DF_Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCD042518FDF60300F5CA65 /* DF_Tile.m */; };
+		EDCD042918FDFA1300F5CA65 /* DF_TheFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCD042818FDFA1300F5CA65 /* DF_TheFactory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,10 @@
 		EDCD041618FDF4C700F5CA65 /* My Pirate AdventureTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "My Pirate AdventureTests-Info.plist"; sourceTree = "<group>"; };
 		EDCD041818FDF4C700F5CA65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EDCD041A18FDF4C700F5CA65 /* My_Pirate_AdventureTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = My_Pirate_AdventureTests.m; sourceTree = "<group>"; };
+		EDCD042418FDF60300F5CA65 /* DF_Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DF_Tile.h; sourceTree = "<group>"; };
+		EDCD042518FDF60300F5CA65 /* DF_Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DF_Tile.m; sourceTree = "<group>"; };
+		EDCD042718FDFA1300F5CA65 /* DF_TheFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DF_TheFactory.h; sourceTree = "<group>"; };
+		EDCD042818FDFA1300F5CA65 /* DF_TheFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DF_TheFactory.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +125,10 @@
 				EDCD040518FDF4C700F5CA65 /* DF_ViewController.m */,
 				EDCD040718FDF4C700F5CA65 /* Images.xcassets */,
 				EDCD03F618FDF4C700F5CA65 /* Supporting Files */,
+				EDCD042418FDF60300F5CA65 /* DF_Tile.h */,
+				EDCD042518FDF60300F5CA65 /* DF_Tile.m */,
+				EDCD042718FDFA1300F5CA65 /* DF_TheFactory.h */,
+				EDCD042818FDFA1300F5CA65 /* DF_TheFactory.m */,
 			);
 			path = "My Pirate Adventure";
 			sourceTree = "<group>";
@@ -250,9 +260,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDCD042918FDFA1300F5CA65 /* DF_TheFactory.m in Sources */,
 				EDCD040618FDF4C700F5CA65 /* DF_ViewController.m in Sources */,
 				EDCD040018FDF4C700F5CA65 /* DF_AppDelegate.m in Sources */,
 				EDCD03FC18FDF4C700F5CA65 /* main.m in Sources */,
+				EDCD042618FDF60300F5CA65 /* DF_Tile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
