@@ -14,7 +14,8 @@
 -(id)initGame
 {
     [self makeGameBoardWithSizeX:4 andSizeY:3];
-    self.startPoint = CGPointMake(0, 0);
+    self.currentTile = self.gameBoard[0][0];
+    self.startPoint = self.currentTile.location;
     
     return self;
 }

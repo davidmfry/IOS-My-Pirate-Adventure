@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DF_TheFactory.h"
 
 @interface DF_ViewController : UIViewController
 @property (strong, nonatomic) IBOutlet UILabel *healthLabel;
@@ -14,7 +15,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *weaponLabel;
 @property (strong, nonatomic) IBOutlet UILabel *armorLabel;
 @property (strong, nonatomic) IBOutlet UILabel *storyLabel;
-@property (nonatomic) CGPoint currentLoc;
+@property (nonatomic) CGPoint currentTileLocation;
+@property (strong, nonatomic) DF_TheFactory *theGame;
 
 // Direction button properties used to hide the button
 @property (strong, nonatomic) IBOutlet UIButton *northBtnProp;

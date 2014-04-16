@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DF_Tile.h"
 
 @interface DF_TheFactory : NSObject
 @property (strong, nonatomic) NSMutableArray *gameBoard;
 @property (nonatomic) CGPoint startPoint;
+@property (strong, nonatomic) DF_Tile *currentTile;
 
 
 -(id)initGame;
