@@ -19,5 +19,6 @@
 @property (nonatomic)int healthEffect;
 @property (nonatomic)CGPoint location;
 
+-(id)initWithCordX:(int)x withCordY:(int)y;
 
 @end

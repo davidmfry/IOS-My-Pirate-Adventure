@@ -14,6 +14,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *weaponLabel;
 @property (strong, nonatomic) IBOutlet UILabel *armorLabel;
 @property (strong, nonatomic) IBOutlet UILabel *storyLabel;
+@property (nonatomic) CGPoint currentLoc;
 
 // Direction button properties used to hide the button
 @property (strong, nonatomic) IBOutlet UIButton *northBtnProp;

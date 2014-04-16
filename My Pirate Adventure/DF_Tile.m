@@ -10,5 +10,15 @@
 
 @implementation DF_Tile
 
+-(id)initWithCordX:(int)x withCordY:(int)y
+{
+    self.location = CGPointMake(x, y);
+    return self;
+}
+
+-(void)showLocation
+{
+    NSLog(@"(%f, %f)", self.location.x, self.location.y);
+}
 
 @end

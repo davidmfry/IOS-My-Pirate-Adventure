@@ -8,6 +8,7 @@
 
 #import "DF_ViewController.h"
 #import "DF_TheFactory.h"
+#import "DF_Tile.h"
 
 @interface DF_ViewController ()
 
@@ -20,8 +21,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     DF_TheFactory *gameContainer = [[DF_TheFactory alloc]init];
-    NSArray *gameBoard = [gameContainer makeGameBoard];
-    NSLog(@"%@", gameBoard);
+    gameContainer.gameBoard = [gameContainer makeGameBoardWithSizeX:4 andSizeY:3];
+    //NSLog(@"%@", gameContainer.gameBoard);
+  
     
 }
 
@@ -31,21 +33,27 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)actionButton:(id)sender {
+- (IBAction)actionButton:(id)sender
+{
 }
 
-- (IBAction)resetButton:(id)sender {
+- (IBAction)resetButton:(id)sender
+{
 }
 
-- (IBAction)northButton:(id)sender {
+- (IBAction)northButton:(id)sender
+{
 }
 
-- (IBAction)eastButton:(id)sender {
+- (IBAction)eastButton:(id)sender
+{
 }
 
-- (IBAction)southButton:(id)sender {
+- (IBAction)southButton:(id)sender
+{
 }
 
-- (IBAction)westButton:(id)sender {
+- (IBAction)westButton:(id)sender
+{
 }
 @end

@@ -9,8 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface DF_TheFactory : NSObject
-@property (strong, nonatomic) NSArray *gameBoard;
+@property (strong, nonatomic) NSMutableArray *gameBoard;
+@property (nonatomic) CGPoint startPoint;
 
--(NSArray *)makeGameBoard;
+
+-(id)initGame;
+-(NSMutableArray *)makeGameBoardWithSizeX:(int)sizeX andSizeY:(int)sizeY;
+
 
 @end
