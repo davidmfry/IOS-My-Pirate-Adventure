@@ -38,6 +38,7 @@
 		EDCD044818FEC35700F5CA65 /* PirateTreasure.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EDCD043C18FEC35700F5CA65 /* PirateTreasure.jpeg */; };
 		EDCD044918FEC35700F5CA65 /* PirateTreasurer2.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EDCD043D18FEC35700F5CA65 /* PirateTreasurer2.jpeg */; };
 		EDCD044A18FEC35700F5CA65 /* PirateWeapons.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EDCD043E18FEC35700F5CA65 /* PirateWeapons.jpeg */; };
+		EDCD044D18FECF4200F5CA65 /* start-background.png in Resources */ = {isa = PBXBuildFile; fileRef = EDCD044C18FECF4200F5CA65 /* start-background.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		EDCD043C18FEC35700F5CA65 /* PirateTreasure.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = PirateTreasure.jpeg; sourceTree = "<group>"; };
 		EDCD043D18FEC35700F5CA65 /* PirateTreasurer2.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = PirateTreasurer2.jpeg; sourceTree = "<group>"; };
 		EDCD043E18FEC35700F5CA65 /* PirateWeapons.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = PirateWeapons.jpeg; sourceTree = "<group>"; };
+		EDCD044C18FECF4200F5CA65 /* start-background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "start-background.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +207,7 @@
 		EDCD044B18FEC35F00F5CA65 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				EDCD044C18FECF4200F5CA65 /* start-background.png */,
 				EDCD043318FEC35700F5CA65 /* PirateAttack.jpg */,
 				EDCD043418FEC35700F5CA65 /* PirateBlacksmith.jpeg */,
 				EDCD043518FEC35700F5CA65 /* PirateBoss.jpeg */,
@@ -300,6 +303,7 @@
 			files = (
 				EDCD044318FEC35700F5CA65 /* PirateOctopusAttack.jpg in Resources */,
 				EDCD044A18FEC35700F5CA65 /* PirateWeapons.jpeg in Resources */,
+				EDCD044D18FECF4200F5CA65 /* start-background.png in Resources */,
 				EDCD044518FEC35700F5CA65 /* PiratePlank.jpg in Resources */,
 				EDCD044818FEC35700F5CA65 /* PirateTreasure.jpeg in Resources */,
 				EDCD044218FEC35700F5CA65 /* PirateFriendlyDock.jpg in Resources */,

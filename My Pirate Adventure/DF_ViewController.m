@@ -31,4 +31,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)actionButton:(id)sender {
+}
+
+- (IBAction)resetButton:(id)sender {
+}
+
+- (IBAction)northButton:(id)sender {
+}
+
+- (IBAction)eastButton:(id)sender {
+}
+
+- (IBAction)southButton:(id)sender {
+}
+
+- (IBAction)westButton:(id)sender {
+}
 @end
