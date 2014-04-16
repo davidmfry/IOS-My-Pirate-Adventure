@@ -7,11 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DF_Weapon.h"
+#import "DF_Armor.h"
 
 @interface DF_Tile : NSObject
 @property (strong, nonatomic)NSString *story;
 @property (strong, nonatomic)NSString *actionButtonName;
 @property (strong, nonatomic)UIImage *backgroundImage;
+@property (strong, nonatomic)DF_Weapon *weapon;
+@property (strong, nonatomic)DF_Armor *armor;
+@property (nonatomic)int healthEffect;
+@property (nonatomic)CGPoint location;
 
 
 @end
