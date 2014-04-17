@@ -10,6 +10,7 @@
 #import "DF_TheFactory.h"
 
 @interface DF_ViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
 @property (strong, nonatomic) IBOutlet UILabel *healthLabel;
 @property (strong, nonatomic) IBOutlet UILabel *damageLabel;
 @property (strong, nonatomic) IBOutlet UILabel *weaponLabel;

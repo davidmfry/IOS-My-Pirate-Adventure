@@ -13,6 +13,7 @@
 @property (strong, nonatomic) NSMutableArray *gameBoard;
 @property (nonatomic) CGPoint startPoint;
 @property (strong, nonatomic) DF_Tile *currentTile;
+@property (strong, nonatomic) NSDictionary *events;
 
 
 -(id)initGame;

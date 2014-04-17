@@ -191,6 +191,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="armorLabel" destination="GtM-bi-pmk" id="oxD-pG-9AN"/>
+                        <outlet property="backgroundImage" destination="PJs-T8-Ujj" id="IbL-Vf-ITB"/>
                         <outlet property="damageLabel" destination="WLa-X7-F6B" id="vel-bj-Y5m"/>
                         <outlet property="eastBtnProp" destination="0sD-QI-0l2" id="Sre-rr-0fZ"/>
                         <outlet property="healthLabel" destination="3fr-VE-7tM" id="Sgx-I6-gS8"/>

@@ -10,9 +10,11 @@
 
 @implementation DF_Tile
 
--(id)initWithCordX:(int)x withCordY:(int)y
+
+-(id)initWithCordX:(int)x withCordY:(int)y withEventList:(NSDictionary *)events andKey:(NSString *)key
 {
     self.location = CGPointMake(x, y);
+    [self makeEvents:events andKey:key];
     return self;
 }
 
@@ -20,5 +22,29 @@
 {
     NSLog(@"(%f, %f)", self.location.x, self.location.y);
 }
+
+-(void)makeEvents:(NSDictionary *)eventList andKey:(NSString *)key
+{
+
+    self.backgroundImage = [eventList objectForKey:key][0];
+    self.story = [eventList objectForKey:key][1];
+
+       
+}
+
+-(void)giveWeapon:(NSDictionary *)eventList andKey:(NSString *)key
+{
+    
+}
+
+-(void)giveArmor:(NSDictionary *)eventList andKey:(NSString *)key
+{
+    
+}
+
+
+
+
+
 
 @end

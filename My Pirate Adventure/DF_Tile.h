@@ -19,6 +19,7 @@
 @property (nonatomic)int healthEffect;
 @property (nonatomic)CGPoint location;
 
--(id)initWithCordX:(int)x withCordY:(int)y;
+-(id)initWithCordX:(int)x withCordY:(int)y withEventList:(NSDictionary *)events andKey:(NSString *)key;
+-(void)makeEvents:(NSDictionary *)eventList andKey:(NSString *)key;
 
 @end
