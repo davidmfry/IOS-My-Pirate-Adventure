@@ -47,21 +47,34 @@
 
 - (IBAction)northButton:(id)sender
 {
-    self.currentTileLocation = [self moveToPoint:self.currentTileLocation atTile:self.theGame.gameBoard[(int)self.currentTileLocation.x][(int)self.currentTileLocation.y] numberOfSpacesToMove:1];
-    //NSLog(@"%f %f",self.currentTileLocation.x, self.currentTileLocation.y);
+    int xPos = self.currentTileLocation.x;
+    int yPos = self.currentTileLocation.y;
+    self.currentTileLocation = [self moveToPoint:self.currentTileLocation atTile:self.theGame.gameBoard[xPos][yPos] numberOfSpacesToMove:1 andDirection:@"north"];
     [self hideNavButtons];
 }
 
 - (IBAction)eastButton:(id)sender
 {
+    int xPos = self.currentTileLocation.x;
+    int yPos = self.currentTileLocation.y;
+    self.currentTileLocation = [self moveToPoint:self.currentTileLocation atTile:self.theGame.gameBoard[xPos][yPos] numberOfSpacesToMove:1 andDirection:@"east"];
+    [self hideNavButtons];
 }
 
 - (IBAction)southButton:(id)sender
 {
+    int xPos = self.currentTileLocation.x;
+    int yPos = self.currentTileLocation.y;
+    self.currentTileLocation = [self moveToPoint:self.currentTileLocation atTile:self.theGame.gameBoard[xPos][yPos] numberOfSpacesToMove:1 andDirection:@"south"];
+    [self hideNavButtons];
 }
 
 - (IBAction)westButton:(id)sender
 {
+    int xPos = self.currentTileLocation.x;
+    int yPos = self.currentTileLocation.y;
+    self.currentTileLocation = [self moveToPoint:self.currentTileLocation atTile:self.theGame.gameBoard[xPos][yPos] numberOfSpacesToMove:1 andDirection:@"west"];
+    [self hideNavButtons];
 }
 
 // Helper Methods
@@ -69,8 +82,6 @@
 {
     int maxHeight = [self.theGame.gameBoard[0] count] - 1;
     int maxWidth = [self.theGame.gameBoard count] - 1;
-    printf("max height %i\n", maxHeight);
-    printf("max height %i\n", maxWidth);
     // show north button
     if (maxHeight >= self.currentTileLocation.y + 1  )
     {
@@ -124,11 +135,42 @@
     }
 }
 
--(CGPoint)moveToPoint:(CGPoint)point atTile:(DF_Tile *)tile numberOfSpacesToMove:(int)spaces
+-(CGPoint)moveToPoint:(CGPoint)point atTile:(DF_Tile *)tile numberOfSpacesToMove:(int)spaces andDirection:(NSString *)direction
 {
-    tile = self.theGame.gameBoard[(int)point.x][(int)point.y + spaces];
-    NSLog(@"NEW POINT FROM TILE %f, %f", tile.location.x, tile.location.y);
-    return tile.location;
+    
+    if ([direction  isEqual: @"north"])
+    {
+        tile = self.theGame.gameBoard[(int)point.x][(int)point.y + spaces];
+        NSLog(@"NEW POINT FROM TILE %f, %f", tile.location.x, tile.location.y);
+        return tile.location;
+    }
+    
+    else if ([direction  isEqual: @"south"])
+    {
+        tile = self.theGame.gameBoard[(int)point.x][(int)point.y - spaces];
+        NSLog(@"NEW POINT FROM TILE %f, %f", tile.location.x, tile.location.y);
+        return tile.location;
+    }
+    
+    else if ([direction isEqual:@"east"])
+    {
+        tile = self.theGame.gameBoard[(int)point.x + spaces][(int)point.y];
+        NSLog(@"NEW POINT FROM TILE %f, %f", tile.location.x, tile.location.y);
+        return tile.location;
+    }
+    
+    else if ([direction isEqual:@"west"])
+    {
+        tile = self.theGame.gameBoard[(int)point.x - spaces][(int)point.y];
+        NSLog(@"NEW POINT FROM TILE %f, %f", tile.location.x, tile.location.y);
+        return tile.location;
+    }
+    
+    else
+    {
+        return point;
+    }
+
     
     
 }
