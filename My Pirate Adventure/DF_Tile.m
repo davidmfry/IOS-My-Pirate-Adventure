@@ -20,7 +20,7 @@
 
 -(void)showLocation
 {
-    NSLog(@"(%f, %f)", self.location.x, self.location.y);
+    NSLog(@"(X:%f, Y:%f)", self.location.x, self.location.y);
 }
 
 -(void)makeEvents:(NSDictionary *)eventList andKey:(NSString *)key

@@ -13,4 +13,6 @@
 @property (strong,nonatomic) NSString *name;
 @property (nonatomic) int armorStat;
 
+-(id)initWithName:(NSString *)name withArmorStat:(int)armorStat;
+
 @end

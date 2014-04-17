@@ -10,7 +10,14 @@
 #import "DF_Tile.h"
 
 @interface DF_ViewController ()
+@property (nonatomic)int xPos;
+@property (nonatomic)int yPos;
 
+@property (nonatomic)int playerHealth;
+@property (nonatomic)int playerDamage;
+@property (nonatomic)int playerArmorRating;
+@property (strong, nonatomic) NSString *weaponName;
+@property (strong, nonatomic) NSString *armorName;
 @end
 
 @implementation DF_ViewController
@@ -24,14 +31,26 @@
     DF_Tile *startTile = self.theGame.gameBoard[0][0];
     
     self.currentTileLocation = startTile.location;
+    
+    self.xPos = self.currentTileLocation.x;
+    self.yPos = self.currentTileLocation.y;
+    
     self.backgroundImage.image = startTile.backgroundImage;
     self.storyLabel.text = startTile.story;
     
-    NSLog(@"%f %f",self.currentTileLocation.x, self.currentTileLocation.y);
+    //NSLog(@"%f %f",self.currentTileLocation.x, self.currentTileLocation.y);
+    self.playerHealth = self.theGame.player.health;
+    self.playerDamage = self.theGame.player.damageRating;
+    self.playerArmorRating = self.theGame.player.armorRating;
+    self.weaponName = self.theGame.player.weapon.name;
+    self.armorName = self.theGame.player.armor.name;
+    
+    self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
+    self.damageLabel.text = [NSString stringWithFormat:@"%d", self.playerDamage];
+    self.weaponLabel.text = self.weaponName;
+    self.armorLabel.text = self.armorName;
+    
     [self hideNavButtons];
-    
-  
-    
 }
 
 
@@ -46,37 +65,34 @@
 
 - (IBAction)northButton:(id)sender
 {
-    int xPos = self.currentTileLocation.x;
-    int yPos = self.currentTileLocation.y;
-    self.currentTileLocation = [self moveToPoint:self.currentTileLocation atTile:self.theGame.gameBoard[xPos][yPos] numberOfSpacesToMove:1 andDirection:@"north"];
-    //[self DrawTile:self.theGame.gameBoard[xPos][yPos]];
+    self.yPos++;
+    [self DrawTile:self.theGame.gameBoard[self.xPos][self.yPos]];
+    [self.theGame.gameBoard[self.xPos][self.yPos] showLocation];
     [self hideNavButtons];
+    
 }
 
 - (IBAction)eastButton:(id)sender
 {
-    int xPos = self.currentTileLocation.x;
-    int yPos = self.currentTileLocation.y;
-    self.currentTileLocation = [self moveToPoint:self.currentTileLocation atTile:self.theGame.gameBoard[xPos][yPos] numberOfSpacesToMove:1 andDirection:@"east"];
-    //[self DrawTile:self.theGame.gameBoard[xPos][yPos]];
+    self.xPos++;
+    [self DrawTile:self.theGame.gameBoard[self.xPos][self.yPos]];
+    [self.theGame.gameBoard[self.xPos][self.yPos] showLocation];
     [self hideNavButtons];
 }
 
 - (IBAction)southButton:(id)sender
 {
-    int xPos = self.currentTileLocation.x;
-    int yPos = self.currentTileLocation.y;
-    self.currentTileLocation = [self moveToPoint:self.currentTileLocation atTile:self.theGame.gameBoard[xPos][yPos] numberOfSpacesToMove:1 andDirection:@"south"];
-    //[self DrawTile:self.theGame.gameBoard[xPos][yPos]];
+    self.yPos--;
+    [self DrawTile:self.theGame.gameBoard[self.xPos][self.yPos]];
+    [self.theGame.gameBoard[self.xPos][self.yPos] showLocation];
     [self hideNavButtons];
 }
 
 - (IBAction)westButton:(id)sender
 {
-    int xPos = self.currentTileLocation.x;
-    int yPos = self.currentTileLocation.y;
-    self.currentTileLocation = [self moveToPoint:self.currentTileLocation atTile:self.theGame.gameBoard[xPos][yPos] numberOfSpacesToMove:1 andDirection:@"west"];
-    //[self DrawTile:self.theGame.gameBoard[xPos][yPos]];
+    self.xPos--;
+    [self DrawTile:self.theGame.gameBoard[self.xPos][self.yPos]];
+    [self.theGame.gameBoard[self.xPos][self.yPos] showLocation];
     [self hideNavButtons];
 }
 
@@ -87,26 +103,26 @@
     int maxHeight = [self.theGame.gameBoard[0] count] - 1;
     int maxWidth = [self.theGame.gameBoard count] - 1;
     // show north button
-    if (maxHeight >= self.currentTileLocation.y + 1  )
+    if (maxHeight >= self.yPos + 1  )
     {
         //NSLog(@"North Ok");
         self.northBtnProp.hidden = NO;
     }
     // hide north button
-    if (self.currentTileLocation.y + 1 > maxHeight)
+    if (self.yPos + 1 > maxHeight)
     {
         //NSLog(@"Can't go North");
         self.northBtnProp.hidden = YES;
     }
     
     // show east button
-    if (maxWidth >= self.currentTileLocation.x + 1)
+    if (maxWidth >= self.xPos + 1)
     {
         //NSLog(@"East Ok");
         self.eastBtnProp.hidden = NO;
     }
     // hide east button
-    if (self.currentTileLocation.x + 1 > maxWidth)
+    if (self.xPos + 1 > maxWidth)
     {
         //NSLog(@"Can't go east");
         self.eastBtnProp.hidden = YES;
@@ -114,75 +130,33 @@
     
 
     // show west button
-    if (self.currentTileLocation.x - 1 >= 0)
+    if (self.xPos - 1 >= 0)
     {
         //NSLog(@"West ok");
         self.westBtnProp.hidden = NO;
     }
     // hide west button
-    if (self.currentTileLocation.x - 1 < 0)
+    if (self.xPos - 1 < 0)
     {
         //NSLog(@"Can't go West");
         self.westBtnProp.hidden = YES;
     }
     
     
-    if (self.currentTileLocation.y - 1 >= 0)
+    if (self.yPos - 1 >= 0)
     {
         //NSLog(@"South Ok");
         self.southBtnProp.hidden = NO;
     }
     
-    if (self.currentTileLocation.y - 1 < 0)
+    if (self.yPos - 1 < 0)
     {
         //NSLog(@"Can't go South");
         self.southBtnProp.hidden = YES;
     }
 }
 
--(CGPoint)moveToPoint:(CGPoint)point atTile:(DF_Tile *)tile numberOfSpacesToMove:(int)spaces andDirection:(NSString *)direction
-{
-    
-    if ([direction  isEqual: @"north"])
-    {
-        tile = self.theGame.gameBoard[(int)point.x][(int)point.y + spaces];
-        [self DrawTile:self.theGame.gameBoard[(int)point.x][(int)point.y]];
-        NSLog(@"NEW POINT FROM TILE %f, %f", tile.location.x, tile.location.y);
-        return tile.location;
-    }
-    
-    if ([direction  isEqual: @"south"])
-    {
-        tile = self.theGame.gameBoard[(int)point.x][(int)point.y - spaces];
-        [self DrawTile:self.theGame.gameBoard[(int)point.x][(int)point.y]];
-        NSLog(@"NEW POINT FROM TILE %f, %f", tile.location.x, tile.location.y);
-        return tile.location;
-    }
-    
-    if ([direction isEqual:@"east"])
-    {
-        tile = self.theGame.gameBoard[(int)point.x + spaces][(int)point.y];
-        [self DrawTile:self.theGame.gameBoard[(int)point.x][(int)point.y]];
-        NSLog(@"NEW POINT FROM TILE %f, %f", tile.location.x, tile.location.y);
-        return tile.location;
-    }
-    
-    if ([direction isEqual:@"west"])
-    {
-        tile = self.theGame.gameBoard[(int)point.x - spaces][(int)point.y];
-        [self DrawTile:self.theGame.gameBoard[(int)point.x][(int)point.y]];
-        NSLog(@"NEW POINT FROM TILE %f, %f", tile.location.x, tile.location.y);
-        return tile.location;
-    }
-    
-    else
-    {
-        return point;
-    }
 
-    
-    
-}
 
 -(void)DrawTile:(DF_Tile *)tile
 {

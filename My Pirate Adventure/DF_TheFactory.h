@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "DF_Tile.h"
+#import "DF_Character.h"
 
 @interface DF_TheFactory : NSObject
 @property (strong, nonatomic) NSMutableArray *gameBoard;
 @property (nonatomic) CGPoint startPoint;
 @property (strong, nonatomic) DF_Tile *currentTile;
 @property (strong, nonatomic) NSDictionary *events;
+@property (strong, nonatomic) DF_Character *player;
 
 
 -(id)initGame;

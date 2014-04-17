@@ -20,6 +20,7 @@
 @property (nonatomic)CGPoint location;
 
 -(id)initWithCordX:(int)x withCordY:(int)y withEventList:(NSDictionary *)events andKey:(NSString *)key;
+-(void)showLocation;
 -(void)makeEvents:(NSDictionary *)eventList andKey:(NSString *)key;
 
 @end

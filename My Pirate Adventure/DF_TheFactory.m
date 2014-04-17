@@ -16,7 +16,9 @@
     self.events = [self settingEvents];
     [self makeGameBoardWithSizeX:4 andSizeY:3];
     self.currentTile = self.gameBoard[0][0];
+    [self.currentTile showLocation];
     self.startPoint = self.currentTile.location;
+    self.player = [self createPlayer];
 
     
     return self;
@@ -116,13 +118,6 @@
         }
         
         DF_Tile *tile = [[DF_Tile alloc]initWithCordX:xCord withCordY:i withEventList:self.events andKey:[self makeEventsWithNumber:randomEvent]];
-        //DF_Tile *tile =[[DF_Tile alloc]init];
-        //NSLog(@"%@",self.events);
-        //[tile makeEvents:self.events andKey:[self makeEventsWithNumber:1]];
-        //tile.story = @"THIS IS A STORY";
-        //NSLog(@"%@",[self makeEventsWithNumber:1]);
-        //[tile makeEvents:self.events andKey:[self makeEventsWithNumber:1]];
-        //NSLog(@"%@ ,%@",tile.backgroundImage, tile.story);
         [columnArray addObject:tile];
         
     }
@@ -171,6 +166,32 @@
     }
     return key;
 }
+
+//-(int)randomEvents:(int)number
+//{
+//    int randomNumber = arc4random();
+//    NSMutableArray *usedNumberList;
+//    return number;
+//}
+
+-(DF_Character *)createPlayer
+{
+    DF_Weapon *dagger = [[DF_Weapon alloc]initWithName:@"Dagger" withDamageStat:2];
+    DF_Armor *rags = [[DF_Armor alloc]initWithName:@"Rags" withArmorStat:5];
+    DF_Character *player = [[DF_Character alloc]initWithHealth:100 withDamageRating:3 withArmorRating:1 withWeapon:dagger withArmor:rags];
+    return player;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 @end

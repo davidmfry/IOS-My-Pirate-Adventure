@@ -12,5 +12,5 @@
 @property (strong, nonatomic) NSString *name;
 @property (nonatomic) int damageStat;
 
-
+-(id)initWithName:(NSString *)name withDamageStat:(int)damageStat;
 @end

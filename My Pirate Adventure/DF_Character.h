@@ -17,5 +17,6 @@
 @property (strong, nonatomic) DF_Weapon *weapon;
 @property (strong, nonatomic) DF_Armor *armor;
 
+-(id)initWithHealth:(int)health withDamageRating:(int)damage withArmorRating:(int)armorRating withWeapon:(DF_Weapon *)weapon withArmor:(DF_Armor *) armor;
 
 @end

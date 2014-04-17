@@ -10,4 +10,11 @@
 
 @implementation DF_Weapon
 
+-(id)initWithName:(NSString *)name withDamageStat:(int)damageStat
+{
+    self.name = name;
+    self.damageStat = damageStat;
+    return self;
+}
+
 @end
