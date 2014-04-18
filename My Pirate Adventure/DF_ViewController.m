@@ -25,6 +25,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    BOOL gameOver = NO;
 	// Do any additional setup after loading the view, typically from a nib.
     self.theGame = [[DF_TheFactory alloc]initGame];
     //self.currentTileLocation = self.theGame.startPoint;
@@ -39,6 +40,7 @@
     self.storyLabel.text = startTile.story;
     
     //NSLog(@"%f %f",self.currentTileLocation.x, self.currentTileLocation.y);
+
     self.playerHealth = self.theGame.player.health;
     self.playerDamage = self.theGame.player.damageRating;
     self.playerArmorRating = self.theGame.player.armorRating;
@@ -49,14 +51,40 @@
     self.damageLabel.text = [NSString stringWithFormat:@"%d", self.playerDamage];
     self.weaponLabel.text = self.weaponName;
     self.armorLabel.text = self.armorName;
+
+
     
     [self hideNavButtons];
 }
 
 
-
 - (IBAction)actionButton:(id)sender
 {
+    DF_Tile *currentTile = self.theGame.gameBoard[self.xPos][self.yPos];
+    
+    if ([self itemCheck:currentTile])
+    {
+        if ([currentTile.weapon isKindOfClass:[DF_Weapon class]])
+        {
+            self.theGame.player.weapon = currentTile.weapon;
+            self.weaponLabel.text = self.theGame.player.weapon.name;
+            self.actionButton.hidden = YES;
+        }
+        if ([currentTile.armor isKindOfClass:[DF_Armor class]])
+        {
+            self.theGame.player.armor = currentTile.armor;
+            self.armorLabel.text = self.theGame.player.armor.name;
+            self.actionButton.hidden = YES;
+        }
+        else
+        {
+            self.theGame.player.weapon = currentTile.weapon;
+            self.theGame.player.armor = currentTile.armor;
+            self.weaponLabel.text = self.theGame.player.weapon.name;
+            self.armorLabel.text = self.theGame.player.armor.name;
+            self.actionButton.hidden = YES;
+        }
+    }
 }
 
 - (IBAction)resetButton:(id)sender
@@ -66,8 +94,13 @@
 - (IBAction)northButton:(id)sender
 {
     self.yPos++;
-    [self DrawTile:self.theGame.gameBoard[self.xPos][self.yPos]];
+    [self drawTile:self.theGame.gameBoard[self.xPos][self.yPos]];
     [self.theGame.gameBoard[self.xPos][self.yPos] showLocation];
+    [self.theGame.gameBoard[self.xPos][self.yPos] showItems];
+    //[self.theGame.gameBoard[self.xPos][self.yPos] showHealthEffect];
+    self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
+    self.weaponLabel.text = self.theGame.player.weapon.name;
+    self.armorLabel.text = self.theGame.player.armor.name;
     [self hideNavButtons];
     
 }
@@ -75,24 +108,39 @@
 - (IBAction)eastButton:(id)sender
 {
     self.xPos++;
-    [self DrawTile:self.theGame.gameBoard[self.xPos][self.yPos]];
+    [self drawTile:self.theGame.gameBoard[self.xPos][self.yPos]];
     [self.theGame.gameBoard[self.xPos][self.yPos] showLocation];
+    [self.theGame.gameBoard[self.xPos][self.yPos] showItems];
+    //[self.theGame.gameBoard[self.xPos][self.yPos] showHealthEffect];
+    self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
+    self.weaponLabel.text = self.theGame.player.weapon.name;
+    self.armorLabel.text = self.theGame.player.armor.name;
     [self hideNavButtons];
 }
 
 - (IBAction)southButton:(id)sender
 {
     self.yPos--;
-    [self DrawTile:self.theGame.gameBoard[self.xPos][self.yPos]];
+    [self drawTile:self.theGame.gameBoard[self.xPos][self.yPos]];
     [self.theGame.gameBoard[self.xPos][self.yPos] showLocation];
+    [self.theGame.gameBoard[self.xPos][self.yPos] showItems];
+    //[self.theGame.gameBoard[self.xPos][self.yPos] showHealthEffect];
+    self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
+    self.weaponLabel.text = self.theGame.player.weapon.name;
+    self.armorLabel.text = self.theGame.player.armor.name;
     [self hideNavButtons];
 }
 
 - (IBAction)westButton:(id)sender
 {
     self.xPos--;
-    [self DrawTile:self.theGame.gameBoard[self.xPos][self.yPos]];
+    [self drawTile:self.theGame.gameBoard[self.xPos][self.yPos]];
     [self.theGame.gameBoard[self.xPos][self.yPos] showLocation];
+    [self.theGame.gameBoard[self.xPos][self.yPos] showItems];
+    //[self.theGame.gameBoard[self.xPos][self.yPos] showHealthEffect];
+    self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
+    self.weaponLabel.text = self.theGame.player.weapon.name;
+    self.armorLabel.text = self.theGame.player.armor.name;
     [self hideNavButtons];
 }
 
@@ -158,12 +206,56 @@
 
 
 
--(void)DrawTile:(DF_Tile *)tile
+-(void)drawTile:(DF_Tile *)tile
 {
+    
+    if ([self itemCheck:tile])
+    {
+        NSLog(@"In Over All Check");
+        if ([tile.weapon isKindOfClass:[DF_Weapon class]] && [tile.armor isKindOfClass:[DF_Armor class]] == NO)
+        {
+            NSLog(@"in weapon check");
+            self.actionButton.hidden = NO;
+            [self.actionButton setTitle:@"Pick up weapon" forState:UIControlStateNormal];
+        }
+        
+        if ([tile.armor isKindOfClass:[DF_Armor class]] && [tile.weapon isKindOfClass:[DF_Weapon class]] == NO)
+        {
+            NSLog(@"in armor Check");
+            self.actionButton.hidden = NO;
+            [self.actionButton setTitle:@"Pick up armor" forState:UIControlStateNormal];
+        }
+        else
+        {
+            NSLog(@"in both check");
+            self.actionButton.hidden = NO;
+            [self.actionButton setTitle:@"Pick up items" forState:UIControlStateNormal];
+        }
+    }
+    else
+    {
+        self.actionButton.hidden = YES;
+    }
+        
     self.backgroundImage.image = tile.backgroundImage;
     self.storyLabel.text = tile.story;
+    self.playerHealth = [self checkHealthEffect:tile];
 }
 
+-(int)checkHealthEffect:(DF_Tile *)tile
+{
+    int effectAmount = [tile.healthEffect intValue];
+    return self.playerHealth + effectAmount;
+}
+
+-(BOOL)itemCheck:(DF_Tile *)tile
+{
+    if ([tile.weapon isKindOfClass:[DF_Weapon class]] || [tile.armor isKindOfClass:[DF_Armor class]])
+    {
+        return YES;
+    }
+    else return NO;
+}
 
 
 

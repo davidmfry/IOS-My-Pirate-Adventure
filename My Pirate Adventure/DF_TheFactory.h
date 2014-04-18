@@ -20,6 +20,7 @@
 
 -(id)initGame;
 -(NSMutableArray *)makeGameBoardWithSizeX:(int)sizeX andSizeY:(int)sizeY;
+-(void)addItemToPlayer:(DF_Character *)player item:(id)item;
 
 
 @end

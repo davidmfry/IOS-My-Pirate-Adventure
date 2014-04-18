@@ -190,6 +190,7 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="actionButton" destination="F4Q-iQ-cYr" id="4vA-2e-LDN"/>
                         <outlet property="armorLabel" destination="GtM-bi-pmk" id="oxD-pG-9AN"/>
                         <outlet property="backgroundImage" destination="PJs-T8-Ujj" id="IbL-Vf-ITB"/>
                         <outlet property="damageLabel" destination="WLa-X7-F6B" id="vel-bj-Y5m"/>

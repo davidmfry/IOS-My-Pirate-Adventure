@@ -8,6 +8,8 @@
 
 #import "DF_TheFactory.h"
 #import "DF_Tile.h"
+#import "DF_Weapon.h"
+#import "DF_Armor.h"
 
 @implementation DF_TheFactory
 
@@ -28,24 +30,24 @@
 {
     NSDictionary *events;
     
-    NSArray *openOcean = [NSArray arrayWithObjects:[UIImage imageNamed:@"open_ocean.png"],@" Open Seas:    The seas are calm.  You set sail across a vast expanse of diamond-sparkling ocean in search of unknown treasure with the wind at your back and a bright horizon ahead!", nil];
+    NSArray *openOcean = [NSArray arrayWithObjects:[UIImage imageNamed:@"open_ocean.png"],@" Open Seas:    The seas are calm.  You set sail across a vast expanse of diamond-sparkling ocean in search of unknown treasure with the wind at your back and a bright horizon ahead!",[self healthEffect:@"0"],nil];
     
-    NSArray *smoothSailingOne = [NSArray arrayWithObjects:[UIImage imageNamed:@"smooth_sailing.png"],@"Smooth Sailing:   The seas are calm.  You set sail across a vast expanse of diamond-sparkling ocean in search of unknown treasure with the wind at your back and a bright horizon ahead!", nil];
+    NSArray *smoothSailingOne = [NSArray arrayWithObjects:[UIImage imageNamed:@"smooth_sailing.png"],@"Smooth Sailing:   The seas are calm.  You set sail across a vast expanse of diamond-sparkling ocean in search of unknown treasure with the wind at your back and a bright horizon ahead!",[self healthEffect:@"0"], nil];
     
-    NSArray *smoothSailingTwo = [NSArray arrayWithObjects:[UIImage imageNamed:@"sailing.png"],@"Smooth Sailing2:   The seas are calm.  You set sail across a vast expanse of diamond-sparkling ocean in search of unknown treasure with the wind at your back and a bright horizon ahead!", nil];
+    NSArray *smoothSailingTwo = [NSArray arrayWithObjects:[UIImage imageNamed:@"sailing.png"],@"Smooth Sailing2:   The seas are calm.  You set sail across a vast expanse of diamond-sparkling ocean in search of unknown treasure with the wind at your back and a bright horizon ahead!",[self healthEffect:@"0"], nil];
     
-    NSArray *blackSmith = [NSArray arrayWithObjects:[UIImage imageNamed:@"blacksmith.png"], @"Blacksmith:   Hands red ensign heave to scurvy nipperkin quarterdeck quarter broadside hearties Sail ho. Pirate Round lookout spanker Blimey crack Jennys tea cup Corsair jib sheet Shiver me timbers tackle. Take a caulk long boat Gold Road swing the lead lee landlubber or just lubber brigantine Brethren of the Coast parrel bowsprit." ,nil];
+    NSArray *blackSmith = [NSArray arrayWithObjects:[UIImage imageNamed:@"blacksmith.png"], @"Blacksmith:   Hands red ensign heave to scurvy nipperkin quarterdeck quarter broadside hearties Sail ho. Pirate Round lookout spanker Blimey crack Jennys tea cup Corsair jib sheet Shiver me timbers tackle. Take a caulk long boat Gold Road swing the lead lee landlubber or just lubber brigantine Brethren of the Coast parrel bowsprit.",[self healthEffect:@"25"], [self addArmorWithName:@"Cloak" withStat:25], nil];
     
-    NSArray *mermaid = [NSArray arrayWithObjects:[UIImage imageNamed:@"mermaid.png"],@"Mermaid:   Jack hearties gunwalls belay draft spyglass pillage run a rig matey salmagundi. Gold Road run a rig walk the plank draft Jolly Roger lee clap of thunder Sink me Spanish Main schooner. Wench killick provost cackle fruit six pounders landlubber or just lubber sloop chase guns gibbet schooner. ",nil];
+    NSArray *mermaid = [NSArray arrayWithObjects:[UIImage imageNamed:@"mermaid.png"],@"Mermaid:   Jack hearties gunwalls belay draft spyglass pillage run a rig matey salmagundi. Gold Road run a rig walk the plank draft Jolly Roger lee clap of thunder Sink me Spanish Main schooner. Wench killick provost cackle fruit six pounders landlubber or just lubber sloop chase guns gibbet schooner. ",[self healthEffect:@"100"],[self addWeaponWithName:@"Saber of the Sea" withStat:50],nil];
     
-    NSArray *piratesAttack = [NSArray arrayWithObjects:[UIImage imageNamed:@"pirates_attack.png"],@"Pirates Attack!:   Long boat yawl tender warp coffer squiffy overhaul marooned Buccaneer splice the main brace. Keelhaul yo-ho-ho man-of-war lugsail schooner stern provost come about gun chase. Scuppers sutler Sail ho flogging quarter fathom six pounders spirits parrel boom. ", nil];
+    NSArray *piratesAttack = [NSArray arrayWithObjects:[UIImage imageNamed:@"pirates_attack.png"],@"Pirates Attack!:   Long boat yawl tender warp coffer squiffy overhaul marooned Buccaneer splice the main brace. Keelhaul yo-ho-ho man-of-war lugsail schooner stern provost come about gun chase. Scuppers sutler Sail ho flogging quarter fathom six pounders spirits parrel boom. ",[self healthEffect:@"-25"],[self addWeaponWithName:@"Cutluss" withStat:25], nil];
     
-    NSArray *ragingSea = [NSArray arrayWithObjects:[UIImage imageNamed:@"raging-seas.png"],@"Raging Sea!:   Crimp rutters warp grapple lad gangway deadlights port brigantine main sheet. Sutler tack hornswaggle execution dock jib strike colors capstan lugsail hearties coffer. Knave nipperkin Sink me Blimey clipper Yellow Jack transom aye matey bilge rat. ", nil];
+    NSArray *ragingSea = [NSArray arrayWithObjects:[UIImage imageNamed:@"raging-seas.png"],@"Raging Sea!:   Crimp rutters warp grapple lad gangway deadlights port brigantine main sheet. Sutler tack hornswaggle execution dock jib strike colors capstan lugsail hearties coffer. Knave nipperkin Sink me Blimey clipper Yellow Jack transom aye matey bilge rat. ",[self healthEffect:@"-50"], nil];
     
-    NSArray *seaDragon = [NSArray arrayWithObjects:[UIImage imageNamed:@"sea-dragon.png"],@"Sea Dragon!:   Line take a caulk coffer reef squiffy topgallant starboard grog spirits draft. Matey parrel yawl tack topgallant trysail hands handsomely Gold Road main sheet. Come about skysail reef sails grog blossom keelhaul crow's nest pillage Jolly Roger me bucko.", nil];
+    NSArray *seaDragon = [NSArray arrayWithObjects:[UIImage imageNamed:@"sea-dragon.png"],@"Sea Dragon!:   Line take a caulk coffer reef squiffy topgallant starboard grog spirits draft. Matey parrel yawl tack topgallant trysail hands handsomely Gold Road main sheet. Come about skysail reef sails grog blossom keelhaul crow's nest pillage Jolly Roger me bucko.",[self healthEffect:@"-75"], nil];
     
-    NSArray *boss = [NSArray arrayWithObjects:[UIImage imageNamed:@"boss.png"],@"Like A Boss:   Hornswaggle hardtack hogshead maroon mutiny aye run a shot across the bow lugger take a caulk man-of-war. Quarter Corsair bilge rat keelhaul crack Jennys tea cup aye red ensign draft no prey, no pay Sea Legs. Loaded to the gunwalls haul wind Jack Tar pinnace jack ahoy shrouds Chain Shot bilge rat transom. ", nil];
-    NSArray *treasureChest = [NSArray arrayWithObjects:[UIImage imageNamed:@"treasure-chest.png"],@"Treasure Chest!!!:   Hornswaggle hardtack hogshead maroon mutiny aye run a shot across the bow lugger take a caulk man-of-war. Quarter Corsair bilge rat keelhaul crack Jennys tea cup aye red ensign draft no prey, no pay Sea Legs. Loaded to the gunwalls haul wind Jack Tar pinnace jack ahoy shrouds Chain Shot bilge rat transom. ", nil];
+    NSArray *boss = [NSArray arrayWithObjects:[UIImage imageNamed:@"boss.png"],@"Like A Boss:   Hornswaggle hardtack hogshead maroon mutiny aye run a shot across the bow lugger take a caulk man-of-war. Quarter Corsair bilge rat keelhaul crack Jennys tea cup aye red ensign draft no prey, no pay Sea Legs. Loaded to the gunwalls haul wind Jack Tar pinnace jack ahoy shrouds Chain Shot bilge rat transom. ",[self healthEffect:@"-100"], nil];
+    NSArray *treasureChest = [NSArray arrayWithObjects:[UIImage imageNamed:@"treasure-chest.png"],@"Treasure Chest!!!:   Hornswaggle hardtack hogshead maroon mutiny aye run a shot across the bow lugger take a caulk man-of-war. Quarter Corsair bilge rat keelhaul crack Jennys tea cup aye red ensign draft no prey, no pay Sea Legs. Loaded to the gunwalls haul wind Jack Tar pinnace jack ahoy shrouds Chain Shot bilge rat transom. ",[self healthEffect:@"50"],[self addWeaponWithName:@"Cutluss of Death" withStat:100 ], [self addArmorWithName:@"Captain's Hat" withStat:100], nil];
     
     
     events = [[NSMutableDictionary alloc]init];
@@ -63,7 +65,7 @@
     return events;
 }
 
-
+#pragma mark - Game Board Creations
 -(NSMutableArray *)makeGameBoardWithSizeX:(int)sizeX andSizeY:(int)sizeY
 {
     /* Creates the game board
@@ -89,7 +91,6 @@
 
 
 
-// Helper Methods
 -(id)createColumnWithSize:(int)size atXCord:(int)xCord
 {
     /* Creats an array for the columns of the board and fills it with tile objects
@@ -167,6 +168,18 @@
     return key;
 }
 
+-(DF_Weapon *)addWeaponWithName:(NSString *)name withStat:(int)stat
+{
+    DF_Weapon *weapon = [[DF_Weapon alloc]initWithName:name withDamageStat:stat];
+    return weapon;
+}
+
+-(DF_Armor *)addArmorWithName:(NSString *)name withStat:(int)stat
+{
+    DF_Armor *armor = [[DF_Armor alloc]initWithName:name withArmorStat:stat];
+    return armor;
+}
+
 //-(int)randomEvents:(int)number
 //{
 //    int randomNumber = arc4random();
@@ -174,6 +187,7 @@
 //    return number;
 //}
 
+#pragma mark - Player creation
 -(DF_Character *)createPlayer
 {
     DF_Weapon *dagger = [[DF_Weapon alloc]initWithName:@"Dagger" withDamageStat:2];
@@ -181,6 +195,29 @@
     DF_Character *player = [[DF_Character alloc]initWithHealth:100 withDamageRating:3 withArmorRating:1 withWeapon:dagger withArmor:rags];
     return player;
 }
+
+#pragma mark - Events
+-(NSString *)healthEffect:(NSString *)effectAmount
+{
+    return effectAmount;
+}
+
+-(void)addItemToPlayer:(DF_Character *)player item:(id)item
+{
+    if ([item isKindOfClass:[DF_Weapon class]])
+    {
+        self.player.weapon = item;
+    }
+    if ([item isKindOfClass:[DF_Armor class]])
+    {
+        self.player.armor = item;
+    }
+        
+}
+
+
+
+
 
 
 

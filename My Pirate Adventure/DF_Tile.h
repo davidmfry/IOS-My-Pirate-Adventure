@@ -16,11 +16,14 @@
 @property (strong, nonatomic)UIImage *backgroundImage;
 @property (strong, nonatomic)DF_Weapon *weapon;
 @property (strong, nonatomic)DF_Armor *armor;
-@property (nonatomic)int healthEffect;
+@property (strong, nonatomic)NSString *healthEffect;
 @property (nonatomic)CGPoint location;
+@property (nonatomic)BOOL visited;
 
 -(id)initWithCordX:(int)x withCordY:(int)y withEventList:(NSDictionary *)events andKey:(NSString *)key;
 -(void)showLocation;
+-(void)showHealthEffect;
+-(void)showItems;
 -(void)makeEvents:(NSDictionary *)eventList andKey:(NSString *)key;
 
 @end

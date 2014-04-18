@@ -16,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *weaponLabel;
 @property (strong, nonatomic) IBOutlet UILabel *armorLabel;
 @property (strong, nonatomic) IBOutlet UILabel *storyLabel;
+@property (strong, nonatomic) IBOutlet UIButton *actionButton;
 @property (nonatomic) CGPoint currentTileLocation;
 @property (strong, nonatomic) DF_TheFactory *theGame;
 
