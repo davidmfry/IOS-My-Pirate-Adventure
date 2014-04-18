@@ -64,23 +64,28 @@
     
     if ([self itemCheck:currentTile])
     {
-        if ([currentTile.weapon isKindOfClass:[DF_Weapon class]])
+        if ([currentTile.weapon isKindOfClass:[DF_Weapon class]] && [currentTile.armor isKindOfClass:[DF_Armor class]] == NO)
         {
+            NSLog(@"in add Weapon");
             self.theGame.player.weapon = currentTile.weapon;
             self.playerDamage = self.theGame.player.weapon.damageStat;
             self.damageLabel.text = [NSString stringWithFormat:@"%d", self.playerDamage];
             self.weaponLabel.text = self.theGame.player.weapon.name;
             self.actionButton.hidden = YES;
         }
-        if ([currentTile.armor isKindOfClass:[DF_Armor class]])
+        
+        else if ([currentTile.armor isKindOfClass:[DF_Armor class]] && [currentTile.weapon isKindOfClass:[DF_Weapon class]] == NO)
         {
+            NSLog(@"in add armor");
             self.theGame.player.armor = currentTile.armor;
             self.playerArmorRating = self.theGame.player.armor.armorStat;
             self.armorLabel.text = self.theGame.player.armor.name;
             self.actionButton.hidden = YES;
         }
-        else
+        
+        else if ([currentTile.armor isKindOfClass:[DF_Armor class]] && [currentTile.weapon isKindOfClass:[DF_Weapon class]])
         {
+            NSLog(@"in add both");
             self.theGame.player.weapon = currentTile.weapon;
             self.theGame.player.armor = currentTile.armor;
             self.playerDamage = self.theGame.player.weapon.damageStat;
@@ -91,6 +96,15 @@
             self.actionButton.hidden = YES;
         }
     }
+    
+    if ([currentTile.tileName isEqualToString:@"Boss"])
+    {
+        NSLog(@"in Boss fight");
+        self.playerHealth = [self bossfight:currentTile];
+        
+    }
+    
+    
 }
 
 - (IBAction)resetButton:(id)sender
@@ -107,6 +121,7 @@
     self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
     self.weaponLabel.text = self.theGame.player.weapon.name;
     self.armorLabel.text = self.theGame.player.armor.name;
+    [self checkForBoss:self.theGame.gameBoard[self.xPos][self.yPos]];
     [self hideNavButtons];
     
 }
@@ -121,6 +136,7 @@
     self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
     self.weaponLabel.text = self.theGame.player.weapon.name;
     self.armorLabel.text = self.theGame.player.armor.name;
+    [self checkForBoss:self.theGame.gameBoard[self.xPos][self.yPos]];
     [self hideNavButtons];
 }
 
@@ -134,6 +150,7 @@
     self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
     self.weaponLabel.text = self.theGame.player.weapon.name;
     self.armorLabel.text = self.theGame.player.armor.name;
+    [self checkForBoss:self.theGame.gameBoard[self.xPos][self.yPos]];
     [self hideNavButtons];
 }
 
@@ -147,6 +164,7 @@
     self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
     self.weaponLabel.text = self.theGame.player.weapon.name;
     self.armorLabel.text = self.theGame.player.armor.name;
+    [self checkForBoss:self.theGame.gameBoard[self.xPos][self.yPos]];
     [self hideNavButtons];
 }
 
@@ -252,10 +270,9 @@
 {
     int effectAmount = [tile.healthEffect intValue];
     
-    if ([tile.tileName isEqualToString:@"Boss"] && effectAmount < 0)
+    if ([tile.tileName  isEqualToString:@"boss"])
     {
-        effectAmount = [tile.healthEffect intValue] - self.playerArmorRating;
-        return effectAmount + self.playerHealth;
+        return effectAmount;
     }
     
     if (effectAmount < 0)
@@ -266,6 +283,35 @@
     return effectAmount + self.playerHealth;
 }
 
+-(void)checkForBoss:(DF_Tile *)tile
+{
+    if ([tile.tileName isEqualToString:@"Boss"])
+    {
+        self.actionButton.hidden = NO;
+        [self.actionButton setTitle:@"Attack!" forState:UIControlStateNormal];
+        [self bossfight:tile];
+    }
+}
+-(int)bossfight:(DF_Tile *)tile
+{
+    NSLog(@"IN SIDE THE BOSS FIGHT METHOD");
+    int bossHp = [tile.healthEffect intValue];
+    int bossAttack = self.theGame.theBoss.damageRating;
+    int playerHealth = self.playerHealth;
+    int playerHit;
+//    if (self.playerDamage >= bossHp)
+//    {
+//        [self specialAction:@"You Won!" messasge:@"You have killed Crunchy Beard! Congrats!" cancelTitle:@"Start Over" otherButtontitle:nil];
+//    }
+    playerHit = playerHealth - (bossAttack - self.playerArmorRating);
+    return playerHit;
+    
+//    if (self.playerHealth <= 0)
+//    {
+//        [self specialAction:@"Game Over" messasge:@"You have been slain by Crunchy Beard" cancelTitle:@"Start Over" otherButtontitle:nil];
+//    }
+    
+}
 
 -(BOOL)itemCheck:(DF_Tile *)tile
 {
