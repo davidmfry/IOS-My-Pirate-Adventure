@@ -67,12 +67,15 @@
         if ([currentTile.weapon isKindOfClass:[DF_Weapon class]])
         {
             self.theGame.player.weapon = currentTile.weapon;
+            self.playerDamage = self.theGame.player.weapon.damageStat;
+            self.damageLabel.text = [NSString stringWithFormat:@"%d", self.playerDamage];
             self.weaponLabel.text = self.theGame.player.weapon.name;
             self.actionButton.hidden = YES;
         }
         if ([currentTile.armor isKindOfClass:[DF_Armor class]])
         {
             self.theGame.player.armor = currentTile.armor;
+            self.playerArmorRating = self.theGame.player.armor.armorStat;
             self.armorLabel.text = self.theGame.player.armor.name;
             self.actionButton.hidden = YES;
         }
@@ -80,8 +83,11 @@
         {
             self.theGame.player.weapon = currentTile.weapon;
             self.theGame.player.armor = currentTile.armor;
+            self.playerDamage = self.theGame.player.weapon.damageStat;
+            self.playerArmorRating = self.theGame.player.armor.armorStat;
             self.weaponLabel.text = self.theGame.player.weapon.name;
             self.armorLabel.text = self.theGame.player.armor.name;
+            self.damageLabel.text = [NSString stringWithFormat:@"%d", self.playerDamage];
             self.actionButton.hidden = YES;
         }
     }
@@ -245,8 +251,21 @@
 -(int)checkHealthEffect:(DF_Tile *)tile
 {
     int effectAmount = [tile.healthEffect intValue];
-    return self.playerHealth + effectAmount;
+    
+    if ([tile.tileName isEqualToString:@"Boss"] && effectAmount < 0)
+    {
+        effectAmount = [tile.healthEffect intValue] - self.playerArmorRating;
+        return effectAmount + self.playerHealth;
+    }
+    
+    if (effectAmount < 0)
+    {
+        effectAmount = [tile.healthEffect intValue] - self.playerArmorRating;
+        return  effectAmount + self.playerHealth;
+    }
+    return effectAmount + self.playerHealth;
 }
+
 
 -(BOOL)itemCheck:(DF_Tile *)tile
 {
@@ -257,7 +276,16 @@
     else return NO;
 }
 
+-(int)updatePlayerActionStats:(int)itemStat
+{
+    return itemStat;
+}
 
+-(void)specialAction:(NSString *)title messasge:(NSString *)message cancelTitle:(NSString *)cancelTitle otherButtontitle:(NSString *)otherTitle
+{
+    self.specialAction = [[UIAlertView alloc]initWithTitle:title message:message delegate:nil cancelButtonTitle:cancelTitle otherButtonTitles:otherTitle, nil];
+    [self.specialAction show];
+}
 
 
 

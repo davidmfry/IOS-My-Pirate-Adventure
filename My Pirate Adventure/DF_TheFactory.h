@@ -16,6 +16,7 @@
 @property (strong, nonatomic) DF_Tile *currentTile;
 @property (strong, nonatomic) NSDictionary *events;
 @property (strong, nonatomic) DF_Character *player;
+@property (strong, nonatomic) DF_Character *theBoss;
 
 
 -(id)initGame;

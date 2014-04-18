@@ -17,10 +17,14 @@
 {
     self.events = [self settingEvents];
     [self makeGameBoardWithSizeX:4 andSizeY:3];
+    self.gameBoard[0][0] = [self tileOverRideXpos:0 yPos:0 eventList:self.events andKey:@"Start"];
+    self.gameBoard[2][1] = [self tileOverRideXpos:2 yPos:1 eventList:self.events andKey:@"Boss"];
+    self.gameBoard[3][0] = [self tileOverRideXpos:3 yPos:0 eventList:self.events andKey:@"TreasureChest"];
     self.currentTile = self.gameBoard[0][0];
     [self.currentTile showLocation];
     self.startPoint = self.currentTile.location;
     self.player = [self createPlayer];
+    self.theBoss = [self createBoss];
 
     
     return self;
@@ -29,6 +33,8 @@
 -(NSDictionary *)settingEvents
 {
     NSDictionary *events;
+    
+    NSArray *start = [NSArray arrayWithObjects:[UIImage imageNamed:@"start_image.png"],@"Start!  Your captain has just died of mysterious causes and your crew has elected you to take over as captain.  You have the Open Ocean waiting for you to pluder or save the damsial in distress.  The choic is yours!",[self healthEffect:@"0"],nil];
     
     NSArray *openOcean = [NSArray arrayWithObjects:[UIImage imageNamed:@"open_ocean.png"],@" Open Seas:    The seas are calm.  You set sail across a vast expanse of diamond-sparkling ocean in search of unknown treasure with the wind at your back and a bright horizon ahead!",[self healthEffect:@"0"],nil];
     
@@ -46,8 +52,8 @@
     
     NSArray *seaDragon = [NSArray arrayWithObjects:[UIImage imageNamed:@"sea-dragon.png"],@"Sea Dragon!:   Line take a caulk coffer reef squiffy topgallant starboard grog spirits draft. Matey parrel yawl tack topgallant trysail hands handsomely Gold Road main sheet. Come about skysail reef sails grog blossom keelhaul crow's nest pillage Jolly Roger me bucko.",[self healthEffect:@"-75"], nil];
     
-    NSArray *boss = [NSArray arrayWithObjects:[UIImage imageNamed:@"boss.png"],@"Like A Boss:   Hornswaggle hardtack hogshead maroon mutiny aye run a shot across the bow lugger take a caulk man-of-war. Quarter Corsair bilge rat keelhaul crack Jennys tea cup aye red ensign draft no prey, no pay Sea Legs. Loaded to the gunwalls haul wind Jack Tar pinnace jack ahoy shrouds Chain Shot bilge rat transom. ",[self healthEffect:@"-100"], nil];
-    NSArray *treasureChest = [NSArray arrayWithObjects:[UIImage imageNamed:@"treasure-chest.png"],@"Treasure Chest!!!:   Hornswaggle hardtack hogshead maroon mutiny aye run a shot across the bow lugger take a caulk man-of-war. Quarter Corsair bilge rat keelhaul crack Jennys tea cup aye red ensign draft no prey, no pay Sea Legs. Loaded to the gunwalls haul wind Jack Tar pinnace jack ahoy shrouds Chain Shot bilge rat transom. ",[self healthEffect:@"50"],[self addWeaponWithName:@"Cutluss of Death" withStat:100 ], [self addArmorWithName:@"Captain's Hat" withStat:100], nil];
+    NSArray *boss = [NSArray arrayWithObjects:[UIImage imageNamed:@"boss.png"],@"Like A Boss:   Hornswaggle hardtack hogshead maroon mutiny aye run a shot across the bow lugger take a caulk man-of-war. Quarter Corsair bilge rat keelhaul crack Jennys tea cup aye red ensign draft no prey, no pay Sea Legs. Loaded to the gunwalls haul wind Jack Tar pinnace jack ahoy shrouds Chain Shot bilge rat transom. ",[self healthEffect:@"-200"], nil];
+    NSArray *treasureChest = [NSArray arrayWithObjects:[UIImage imageNamed:@"treasure-chest.png"],@"Treasure Chest!!!:   Hornswaggle hardtack hogshead maroon mutiny aye run a shot across the bow lugger take a caulk man-of-war. Quarter Corsair bilge rat keelhaul crack Jennys tea cup aye red ensign draft no prey, no pay Sea Legs. Loaded to the gunwalls haul wind Jack Tar pinnace jack ahoy shrouds Chain Shot bilge rat transom. ",[self healthEffect:@"50"],[self addWeaponWithName:@"Cutluss of Death" withStat:200 ], [self addArmorWithName:@"Captain's Hat" withStat:100], nil];
     
     
     events = [[NSMutableDictionary alloc]init];
@@ -61,6 +67,7 @@
     [events setValue:seaDragon          forKeyPath:@"SeaDragon"];
     [events setValue:boss               forKeyPath:@"Boss"];
     [events setValue:treasureChest      forKeyPath:@"TreasureChest"];
+    [events setValue:start              forKeyPath:@"Start"];
     
     return events;
 }
@@ -110,7 +117,7 @@
     
     for (int i = 0; i < size; i++)
     {
-        int randomEvent = arc4random() % 11;
+        int randomEvent = arc4random() % 9;
         NSLog(@"%d", randomEvent);
         
         if (randomEvent == 0)
@@ -162,6 +169,8 @@
         case 10:
             key = @"Boss";
             break;
+        case 100:
+            key =@"Start";
         default:
             break;
     }
@@ -180,6 +189,12 @@
     return armor;
 }
 
+-(DF_Tile *)tileOverRideXpos:(int)xPos yPos:(int)yPos eventList:(NSDictionary *)events andKey:(NSString *)key
+{
+    DF_Tile *newTile = [[DF_Tile alloc]initWithCordX:xPos withCordY:yPos withEventList:events andKey:key];
+    return newTile;
+}
+
 //-(int)randomEvents:(int)number
 //{
 //    int randomNumber = arc4random();
@@ -192,8 +207,17 @@
 {
     DF_Weapon *dagger = [[DF_Weapon alloc]initWithName:@"Dagger" withDamageStat:2];
     DF_Armor *rags = [[DF_Armor alloc]initWithName:@"Rags" withArmorStat:5];
-    DF_Character *player = [[DF_Character alloc]initWithHealth:100 withDamageRating:3 withArmorRating:1 withWeapon:dagger withArmor:rags];
+    DF_Character *player = [[DF_Character alloc]initWithHealth:200 withDamageRating:3 withArmorRating:1 withWeapon:dagger withArmor:rags];
     return player;
+}
+
+-(DF_Character *)createBoss
+{
+    DF_Weapon *blackBearsSword = [[DF_Weapon alloc]initWithName:@"Black Beards Sword" withDamageStat:100];
+    DF_Armor *jackSparrowsJacket = [[DF_Armor alloc]initWithName:@"Jack Sparrow's Jacket" withArmorStat:150];
+    DF_Character *theBoss = [[DF_Character alloc]initWithHealth:300 withDamageRating:10 withArmorRating:10 withWeapon:blackBearsSword withArmor:jackSparrowsJacket];
+    return theBoss;
+
 }
 
 #pragma mark - Events
@@ -214,6 +238,8 @@
     }
         
 }
+
+
 
 
 

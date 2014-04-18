@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED5A6E711901D15200B06F7D /* start_image.png in Resources */ = {isa = PBXBuildFile; fileRef = ED5A6E701901D15200B06F7D /* start_image.png */; };
 		EDCD03F018FDF4C700F5CA65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDCD03EF18FDF4C700F5CA65 /* Foundation.framework */; };
 		EDCD03F218FDF4C700F5CA65 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDCD03F118FDF4C700F5CA65 /* CoreGraphics.framework */; };
 		EDCD03F418FDF4C700F5CA65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDCD03F318FDF4C700F5CA65 /* UIKit.framework */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		ED5A6E701901D15200B06F7D /* start_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = start_image.png; sourceTree = "<group>"; };
 		EDCD03EC18FDF4C700F5CA65 /* My Pirate Adventure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Pirate Adventure.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDCD03EF18FDF4C700F5CA65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		EDCD03F118FDF4C700F5CA65 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -203,6 +205,7 @@
 		EDCD044B18FEC35F00F5CA65 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				ED5A6E701901D15200B06F7D /* start_image.png */,
 				EDCD046419004A1200F5CA65 /* sailing.png */,
 				EDCD046219001CF700F5CA65 /* sea-dragon.png */,
 				EDCD044E19001CAE00F5CA65 /* blacksmith.png */,
@@ -308,6 +311,7 @@
 				EDCD045F19001CAE00F5CA65 /* smooth_sailing.png in Resources */,
 				EDCD040318FDF4C700F5CA65 /* Main.storyboard in Resources */,
 				EDCD045819001CAE00F5CA65 /* blacksmith.png in Resources */,
+				ED5A6E711901D15200B06F7D /* start_image.png in Resources */,
 				EDCD046519004A1200F5CA65 /* sailing.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,6 +543,7 @@
 				EDCD042018FDF4C700F5CA65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EDCD042118FDF4C700F5CA65 /* Build configuration list for PBXNativeTarget "My Pirate AdventureTests" */ = {
 			isa = XCConfigurationList;
@@ -547,6 +552,7 @@
 				EDCD042318FDF4C700F5CA65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

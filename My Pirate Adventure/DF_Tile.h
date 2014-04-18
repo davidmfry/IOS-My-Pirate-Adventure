@@ -17,6 +17,7 @@
 @property (strong, nonatomic)DF_Weapon *weapon;
 @property (strong, nonatomic)DF_Armor *armor;
 @property (strong, nonatomic)NSString *healthEffect;
+@property (strong, nonatomic)NSString *tileName;
 @property (nonatomic)CGPoint location;
 @property (nonatomic)BOOL visited;
 

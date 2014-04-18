@@ -16,6 +16,7 @@
     self.visited = NO;
     self.location = CGPointMake(x, y);
     [self makeEvents:events andKey:key];
+    self.tileName = key;
     return self;
 }
 
