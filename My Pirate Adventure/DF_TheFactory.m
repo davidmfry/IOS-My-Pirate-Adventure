@@ -15,16 +15,20 @@
 
 -(id)initGame
 {
-    self.events = [self settingEvents];
-    [self makeGameBoardWithSizeX:4 andSizeY:3];
-    self.gameBoard[0][0] = [self tileOverRideXpos:0 yPos:0 eventList:self.events andKey:@"Start"];
-    self.gameBoard[2][1] = [self tileOverRideXpos:2 yPos:1 eventList:self.events andKey:@"Boss"];
-    self.gameBoard[3][0] = [self tileOverRideXpos:3 yPos:0 eventList:self.events andKey:@"TreasureChest"];
-    self.currentTile = self.gameBoard[0][0];
-    [self.currentTile showLocation];
-    self.startPoint = self.currentTile.location;
-    self.player = [self createPlayer];
-    self.theBoss = [self createBoss];
+    self = [super init];
+    if (self)
+    {
+        self.events = [self settingEvents];
+        [self makeGameBoardWithSizeX:4 andSizeY:3];
+        self.gameBoard[0][0] = [self tileOverRideXpos:0 yPos:0 eventList:self.events andKey:@"Start"];
+        self.gameBoard[2][1] = [self tileOverRideXpos:2 yPos:1 eventList:self.events andKey:@"Boss"];
+        self.gameBoard[3][0] = [self tileOverRideXpos:3 yPos:0 eventList:self.events andKey:@"TreasureChest"];
+        self.currentTile = self.gameBoard[0][0];
+        [self.currentTile showLocation];
+        self.startPoint = self.currentTile.location;
+        self.player = [self createPlayer];
+        self.theBoss = [self createBoss];
+    }
 
     
     return self;

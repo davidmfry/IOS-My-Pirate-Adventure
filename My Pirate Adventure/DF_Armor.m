@@ -12,8 +12,13 @@
 
 -(id)initWithName:(NSString *)name withArmorStat:(int)armorStat
 {
-    self.name = name;
-    self.armorStat = armorStat;
+    self = [super init];
+    if (self)
+    {
+        self.name = name;
+        self.armorStat = armorStat;
+    }
+
     return self;
 }
 

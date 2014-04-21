@@ -11,11 +11,16 @@
 @implementation DF_Character
 -(id)initWithHealth:(int)health withDamageRating:(int)damage withArmorRating:(int)armorRating withWeapon:(DF_Weapon *)weapon withArmor:(DF_Armor *) armor;
 {
-    self.health = health;
-    self.damageRating = damage;
-    self.armorRating = armorRating;
-    self.weapon = weapon;
-    self.armor = armor;
+    self = [super init];
+    if (self)
+    {
+        self.health = health;
+        self.damageRating = damage;
+        self.armorRating = armorRating;
+        self.weapon = weapon;
+        self.armor = armor;
+    }
+ 
     return self;
 }
 
