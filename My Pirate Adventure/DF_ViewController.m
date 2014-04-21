@@ -53,13 +53,13 @@
     self.bossArmorRating        = self.theGame.theBoss.armorRating;
     
     // setting the labels for the player
-    self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
-    self.damageLabel.text = [NSString stringWithFormat:@"%d", self.playerDamage];
-    self.weaponLabel.text = self.weaponName;
-    self.armorLabel.text = self.armorName;
+    self.healthLabel.text       = [NSString stringWithFormat:@"%d", self.playerHealth];
+    self.damageLabel.text       = [NSString stringWithFormat:@"%d", self.playerDamage];
+    self.weaponLabel.text       = self.weaponName;
+    self.armorLabel.text        = self.armorName;
 
     // hides the action button at the start
-    self.actionButton.hidden = YES;
+    self.actionButton.hidden    = YES;
     
     // Hides the buttons that are off the maps or where the player can't go
     [self hideNavButtons];
@@ -381,7 +381,6 @@
 {
     if (self.playerHealth <= 0)
     {
-        NSLog(@"You have Died");
         self.specialAction = [[UIAlertView alloc]initWithTitle:@"Game Over" message:@"You have been killed" delegate:self cancelButtonTitle:@"Start Over" otherButtonTitles:nil];
         [self.specialAction show];
     }
@@ -410,7 +409,6 @@
 -(int)bossfight:(DF_Tile *)tile
 {
     int bossAttack = self.playerArmorRating - self.bossDamage;
-    NSLog(@"Boss Armor %d", bossAttack);
     int playerHealth = self.playerHealth;
     int playerHit = 0;
     

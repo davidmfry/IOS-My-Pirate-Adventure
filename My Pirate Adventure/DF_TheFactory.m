@@ -51,8 +51,6 @@
         [self.gameBoard addObject:[self createColumnWithSize:sizeY atXCord:i]];
     }
     
-    
-    //NSLog(@"%@",self.gameBoard);
     return self.gameBoard;
 }
 

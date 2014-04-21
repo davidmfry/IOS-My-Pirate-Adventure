@@ -37,7 +37,6 @@
 
 -(void)makeEvents:(NSDictionary *)eventList andKey:(NSString *)key
 {
-    NSLog(@"COUNT %d",[[eventList objectForKey:key]count]);
     
     if ([[eventList objectForKey:key]count] == 4 )
     {
@@ -63,20 +62,8 @@
     self.story = [eventList objectForKey:key][1];
     self.healthEffect = [eventList objectForKey:key][2];
     
- 
-
-       
 }
 
--(void)giveWeapon:(NSDictionary *)eventList andKey:(NSString *)key
-{
-    
-}
-
--(void)giveArmor:(NSDictionary *)eventList andKey:(NSString *)key
-{
-    
-}
 
 
 
