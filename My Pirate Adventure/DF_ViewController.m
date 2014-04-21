@@ -16,16 +16,18 @@
 @property (nonatomic)int playerHealth;
 @property (nonatomic)int playerDamage;
 @property (nonatomic)int playerArmorRating;
+@property (nonatomic)int bossHealth;
+@property (nonatomic)int bossDamage;
+@property (nonatomic)int bossArmorRating;
 @property (strong, nonatomic) NSString *weaponName;
 @property (strong, nonatomic) NSString *armorName;
 @end
 
-@implementation DF_ViewController
+@implementation DF_ViewController 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    BOOL gameOver = NO;
 	// Do any additional setup after loading the view, typically from a nib.
     self.theGame = [[DF_TheFactory alloc]initGame];
     //self.currentTileLocation = self.theGame.startPoint;
@@ -46,6 +48,9 @@
     self.playerArmorRating = self.theGame.player.armorRating;
     self.weaponName = self.theGame.player.weapon.name;
     self.armorName = self.theGame.player.armor.name;
+    self.bossHealth = self.theGame.theBoss.health;
+    self.bossDamage = self.theGame.theBoss.damageRating;
+    self.bossArmorRating = self.theGame.theBoss.armorRating;
     
     self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
     self.damageLabel.text = [NSString stringWithFormat:@"%d", self.playerDamage];
@@ -61,6 +66,8 @@
 - (IBAction)actionButton:(id)sender
 {
     DF_Tile *currentTile = self.theGame.gameBoard[self.xPos][self.yPos];
+    [self bossDeathCheck];
+    [self playerDeathCheck];
     
     if ([self itemCheck:currentTile])
     {
@@ -99,8 +106,30 @@
     
     if ([currentTile.tileName isEqualToString:@"Boss"])
     {
-        NSLog(@"in Boss fight");
+        int playerAttack = self.bossArmorRating - self.playerDamage;
+        if (self.bossHealth <= 0 && self.playerDamage <= 0)
+        {
+            NSLog(@"You killed each other");
+        }
+        
+        else if (self.bossHealth <= 0)
+        {
+            NSLog(@"You killed the Boss");
+        }
+        
+        if (playerAttack < 0)
+        {
+            playerAttack = abs(playerAttack);
+        }
+        else if (playerAttack > 0)
+        {
+            playerAttack = self.playerDamage;
+        }
+        
+        self.bossHealth = self.bossHealth - playerAttack;
         self.playerHealth = [self bossfight:currentTile];
+        NSLog(@"Boss Health: %d", self.bossHealth);
+        self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
         
     }
     
@@ -109,6 +138,7 @@
 
 - (IBAction)resetButton:(id)sender
 {
+    [self viewDidLoad];
 }
 
 - (IBAction)northButton:(id)sender
@@ -119,9 +149,9 @@
     [self.theGame.gameBoard[self.xPos][self.yPos] showItems];
     //[self.theGame.gameBoard[self.xPos][self.yPos] showHealthEffect];
     self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
+    [self playerDeathCheck];
     self.weaponLabel.text = self.theGame.player.weapon.name;
     self.armorLabel.text = self.theGame.player.armor.name;
-    [self checkForBoss:self.theGame.gameBoard[self.xPos][self.yPos]];
     [self hideNavButtons];
     
 }
@@ -134,9 +164,9 @@
     [self.theGame.gameBoard[self.xPos][self.yPos] showItems];
     //[self.theGame.gameBoard[self.xPos][self.yPos] showHealthEffect];
     self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
+    [self playerDeathCheck];
     self.weaponLabel.text = self.theGame.player.weapon.name;
     self.armorLabel.text = self.theGame.player.armor.name;
-    [self checkForBoss:self.theGame.gameBoard[self.xPos][self.yPos]];
     [self hideNavButtons];
 }
 
@@ -148,9 +178,9 @@
     [self.theGame.gameBoard[self.xPos][self.yPos] showItems];
     //[self.theGame.gameBoard[self.xPos][self.yPos] showHealthEffect];
     self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
+    [self playerDeathCheck];
     self.weaponLabel.text = self.theGame.player.weapon.name;
     self.armorLabel.text = self.theGame.player.armor.name;
-    [self checkForBoss:self.theGame.gameBoard[self.xPos][self.yPos]];
     [self hideNavButtons];
 }
 
@@ -162,9 +192,9 @@
     [self.theGame.gameBoard[self.xPos][self.yPos] showItems];
     //[self.theGame.gameBoard[self.xPos][self.yPos] showHealthEffect];
     self.healthLabel.text = [NSString stringWithFormat:@"%d", self.playerHealth];
+    [self playerDeathCheck];
     self.weaponLabel.text = self.theGame.player.weapon.name;
     self.armorLabel.text = self.theGame.player.armor.name;
-    [self checkForBoss:self.theGame.gameBoard[self.xPos][self.yPos]];
     [self hideNavButtons];
 }
 
@@ -263,54 +293,75 @@
         
     self.backgroundImage.image = tile.backgroundImage;
     self.storyLabel.text = tile.story;
-    self.playerHealth = [self checkHealthEffect:tile];
+    
+    if ([tile.tileName isEqualToString:@"Boss"])
+    {
+        [self displayBossButton:tile];
+    }
+    
+    else
+    {
+        self.playerHealth = [self checkHealthEffect:tile];
+    }
 }
 
 -(int)checkHealthEffect:(DF_Tile *)tile
 {
     int effectAmount = [tile.healthEffect intValue];
     
-    if ([tile.tileName  isEqualToString:@"boss"])
+    if ([tile.tileName  isEqualToString:@"Boss"])
     {
+        effectAmount = 0;
         return effectAmount;
     }
     
     if (effectAmount < 0)
     {
-        effectAmount = [tile.healthEffect intValue] - self.playerArmorRating;
+        effectAmount = [tile.healthEffect intValue];
         return  effectAmount + self.playerHealth;
     }
     return effectAmount + self.playerHealth;
 }
 
--(void)checkForBoss:(DF_Tile *)tile
+-(void)playerDeathCheck
 {
-    if ([tile.tileName isEqualToString:@"Boss"])
+    if (self.playerHealth <= 0)
     {
-        self.actionButton.hidden = NO;
-        [self.actionButton setTitle:@"Attack!" forState:UIControlStateNormal];
-        [self bossfight:tile];
+        NSLog(@"You have Died");
+        self.specialAction = [[UIAlertView alloc]initWithTitle:@"Game Over" message:@"You have been killed" delegate:self cancelButtonTitle:@"Start Over" otherButtonTitles:nil];
+        [self.specialAction show];
     }
 }
+
+-(void)bossDeathCheck
+{
+    if (self.bossHealth <= 0)
+    {
+        self.specialAction = [[UIAlertView alloc]initWithTitle:@"You Won" message:@"You have killed THE BOSS" delegate:self cancelButtonTitle:@"Play Again" otherButtonTitles: nil];
+        [self.specialAction show];
+    }
+}
+
+-(void)displayBossButton:(DF_Tile *)tile
+{
+    self.actionButton.hidden = NO;
+    [self.actionButton setTitle:@"Attack!" forState:UIControlStateNormal];
+}
+
 -(int)bossfight:(DF_Tile *)tile
 {
-    NSLog(@"IN SIDE THE BOSS FIGHT METHOD");
-    int bossHp = [tile.healthEffect intValue];
-    int bossAttack = self.theGame.theBoss.damageRating;
+    int bossAttack = self.playerArmorRating - self.bossDamage;
+    NSLog(@"Boss Armor %d", bossAttack);
     int playerHealth = self.playerHealth;
-    int playerHit;
-//    if (self.playerDamage >= bossHp)
-//    {
-//        [self specialAction:@"You Won!" messasge:@"You have killed Crunchy Beard! Congrats!" cancelTitle:@"Start Over" otherButtontitle:nil];
-//    }
-    playerHit = playerHealth - (bossAttack - self.playerArmorRating);
+    int playerHit = 0;
+    
+    if (bossAttack < 0)
+    {
+        bossAttack = abs(bossAttack);
+    }
+    playerHit = playerHealth - bossAttack;
+    
     return playerHit;
-    
-//    if (self.playerHealth <= 0)
-//    {
-//        [self specialAction:@"Game Over" messasge:@"You have been slain by Crunchy Beard" cancelTitle:@"Start Over" otherButtontitle:nil];
-//    }
-    
 }
 
 -(BOOL)itemCheck:(DF_Tile *)tile
@@ -329,8 +380,16 @@
 
 -(void)specialAction:(NSString *)title messasge:(NSString *)message cancelTitle:(NSString *)cancelTitle otherButtontitle:(NSString *)otherTitle
 {
-    self.specialAction = [[UIAlertView alloc]initWithTitle:title message:message delegate:nil cancelButtonTitle:cancelTitle otherButtonTitles:otherTitle, nil];
+    self.specialAction = [[UIAlertView alloc]initWithTitle:title message:message delegate:self cancelButtonTitle:cancelTitle otherButtonTitles:otherTitle, nil];
     [self.specialAction show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        [self viewDidLoad];
+    }
 }
 
 

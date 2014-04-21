@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DF_TheFactory.h"
 
-@interface DF_ViewController : UIViewController
+@interface DF_ViewController : UIViewController <UIAlertViewDelegate>
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
 @property (strong, nonatomic) IBOutlet UILabel *healthLabel;
 @property (strong, nonatomic) IBOutlet UILabel *damageLabel;
