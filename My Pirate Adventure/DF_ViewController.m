@@ -28,12 +28,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    self.theGame = [[DF_TheFactory alloc]initGame];
-    //self.currentTileLocation = self.theGame.startPoint;
-    DF_Tile *startTile = self.theGame.gameBoard[0][0];
+    self.theGame                = [[DF_TheFactory alloc]initGame];
+    DF_Tile *startTile          = self.theGame.gameBoard[0][0];
     
-    self.currentTileLocation = startTile.location;
+    self.currentTileLocation    = startTile.location;
     
     self.xPos = self.currentTileLocation.x;
     self.yPos = self.currentTileLocation.y;
